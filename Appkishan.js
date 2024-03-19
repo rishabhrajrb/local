@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Alert } from 'react-native'
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Alert,StatusBar } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
@@ -62,6 +62,14 @@ const Appkishan = (props) => {
   return (
 
     <View>
+
+<StatusBar
+
+backgroundColor='green'
+barStyle={'default'}
+
+
+/>
 
       <View>
         <Image style={style.textImage} source={require('./Assets/logo1.png')} />
@@ -161,9 +169,12 @@ const style = StyleSheet.create({
     backgroundColor: 'blue',
     borderRadius: 200,
     margin: 10,
+    marginLeft:15,
     lineHeight: 25,
     textAlign: 'center',
     textAlignVertical: 'center',
+    position:'absolute',
+    width:330
 
 
 
@@ -183,12 +194,15 @@ const style = StyleSheet.create({
     color: 'black',
     fontSize: 20,
     height: 30,
-    margin: 10,
+    margin: 65,
+    
+    marginLeft:140,
     fontWeight: 'bold',
-    lineHeight: 10,
-    textAlign: 'center',
+  lineHeight: 10,
+   
     textAlignVertical: 'center',
     textDecorationLine: 'underline',
+    position:'absolute'
   },
   textImage: {
     marginTop: 40,

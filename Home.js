@@ -52,14 +52,16 @@ const style = StyleSheet.create({
     margin: 350,
     backgroundColor: 'black',
     color: 'white',
-
-    height: 45,
+ height: 45,
     borderRadius: 50,
     lineHeight: 25,
     width: '50%',
     marginLeft: 88,
     textAlign: 'center',
     textAlignVertical: 'center',
+   position:'absolute'
+ 
+
 
 
 

@@ -10,31 +10,32 @@ const SignUp = (props) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmpassword, setconfirmPassword] = useState('');
-    const [show, setshow] = useState(false);
+   const [show, setshow] = useState(false);
+    const [confirmshow, setconfimshow] = useState(false);
 
 
 
 
     const onsubmitpress = async () => {
-       
+
         if (!name) {
 
             Alert.alert('Please Enter Your Name ');
             return;
         }
-            if (!email){
-                Alert.alert(' Please Enter Your Email');
-                return;
-            }
-            if (!password){
-                Alert.alert(' Please Enter Your Password ');
-                return;
-            }
-            if (!confirmpassword){
-                Alert.alert('please Enter Your Confirmpassword ');
-                return;
-            }
-         if (password != confirmpassword) {
+        if (!email) {
+            Alert.alert(' Please Enter Your Email');
+            return;
+        }
+        if (!password) {
+            Alert.alert(' Please Enter Your Password ');
+            return;
+        }
+        if (!confirmpassword) {
+            Alert.alert('please Enter Your Confirmpassword ');
+            return;
+        }
+        if (password != confirmpassword) {
             Alert.alert('confirmpassword and password are not same');
 
 
@@ -101,10 +102,7 @@ const SignUp = (props) => {
                 autoCorrect={false}
                 secureTextEntry={!show}
                 textContentType='password'
-                onChangeText={(text) => {
-
-                    setPassword(text)
-                }}
+                onChangeText={(text) => { setPassword(text) }}
                 value={password}
             />
             <TouchableOpacity onPress={() => (
@@ -119,29 +117,29 @@ const SignUp = (props) => {
 
 
             <TextInput
-                style={style.textboxC}
+                style={style.textbox1}
                 placeholder='Confirm Passwords'
                 autoCorrect={false}
-                secureTextEntry={!show}
+                secureTextEntry={!confirmshow}
                 textContentType='confirmpassword'
                 onChangeText={(text) => setconfirmPassword(text)}
                 value={confirmpassword}
-                
-            
-    
+
+
+
 
             />
-                <TouchableOpacity onPress={() =>(
+            <TouchableOpacity onPress={() => (
 
-setshow(!show))
+                setconfimshow(!confirmshow))
 
 
-}>
-<Image style={style.textbox4} source={show  ? require('./Assets/eye.png') : require('./Assets/eye-off.png')} />
+            }>
+                <Image style={style.textbox4} source={confirmshow ? require('./Assets/eye.png') : require('./Assets/eye-off.png')} />
 
-</TouchableOpacity>
+            </TouchableOpacity>
 
-          
+
 
 
             <TouchableOpacity onPress={() => onsubmitpress()}>
@@ -172,17 +170,6 @@ const style = StyleSheet.create({
 
         borderRadius: 20,
     },
-    textboxC: {
-        fontSize: 22,
-        borderColor: 'black',
-        paddingHorizontal: 15,
-        paddingVertical: 7,
-        fontFamily: 'regular',
-        borderWidth: 2,
-        margin: 10,
-
-        borderRadius: 20,
-    },
     textbox2: {
         color: 'white',
         fontSize: 20,
@@ -195,24 +182,29 @@ const style = StyleSheet.create({
         marginLeft: 88,
         textAlign: 'center',
         textAlignVertical: 'center',
+        position: 'absolute',
+
+
 
 
 
     },
     textbox3: {
         color: 'black',
-        fontSize: 29,
+
         height: 30,
-        margin: 10,
+        margin: 79,
+        marginLeft: 150,
         lineHeight: 25,
         textAlign: 'center',
         textAlignVertical: 'center',
         color: 'black',
-        fontSize: 20,
+        fontSize: 22,
         height: 30,
         lineHeight: 12,
         textDecorationLine: 'underline',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        position: 'absolute'
 
 
     },
