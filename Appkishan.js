@@ -1,50 +1,69 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Alert,StatusBar } from 'react-native'
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Alert, StatusBar, ScrollView } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Header from './Header';
+
 
 
 
 
 const Appkishan = (props) => {
 
-  const [name, setName] = useState("");
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const [show, setshow] = useState(false);
-  
 
   const onLoginPress = async () => {
 
+    const validateEmail = (email) => {
 
-    const Email = await AsyncStorage.getItem('Email')
-    const Password = await AsyncStorage.getItem('Password')
-
-
-
-    if (email === Email && password === Password) {
+      const emailRegex = /\S+@\S+\.\S+/;
+      return emailRegex.test(email);
+    }
 
 
-      props.navigation.navigate('Home')
-      return;
-    } 
-  
-    
-    if(!email){
+
+
+    if (!email) {
       Alert.alert(' Enter Your Email ');
       return;
     }
-   
-   else if (!password){
-    Alert.alert('Enter Your password');
-  return;
-  }
-  
-    
-    else {
+    if (validateEmail(email)) {
 
-      Alert.alert('Incorrect email or password');
+    } else {
+      Alert.alert('Please Enter a Valid Email')
+      return;
     }
+    if (!password) {
+      Alert.alert('Enter Your password');
+      return;
+    }
+
+    let user = await AsyncStorage.getItem('userList')
+
+    let userList = JSON.parse(user)
+    if (userList) {
+
+      let userData = userList.filter((user) => user.email == email && user.password == password)
+      if (userData?.length) {
+        await AsyncStorage.setItem('Logedinuser', JSON.stringify(userData[0]))
+
+        props.navigation.navigate('Home'/*,{ user: userData[0] }*/)
+
+        return
+
+      }
+
+      else {
+        Alert.alert('Incorrect email or password');
+      }
+
+
+
+    }
+
   };
 
 
@@ -61,15 +80,23 @@ const Appkishan = (props) => {
 
   return (
 
-    <View>
+    <ScrollView style={{ backgroundColor: 'white', flexGrow: 1 }}>
 
-<StatusBar
+      <Header
+        title={'Login-page'}
+        isHide={true}
+        navigation={props.navigation}
 
-backgroundColor='green'
-barStyle={'default'}
+      />
+
+      <StatusBar
+
+        backgroundColor='pink'
+        barStyle={'dark-content'}
 
 
-/>
+      />
+
 
       <View>
         <Image style={style.textImage} source={require('./Assets/logo1.png')} />
@@ -83,7 +110,7 @@ barStyle={'default'}
 
       />
 
-      <View>
+      <View >
         <TextInput
           style={style.textInput4}
           placeholder='ENTER User Password'
@@ -95,6 +122,7 @@ barStyle={'default'}
           maxLength={15}
 
         />
+
         <TouchableOpacity onPress={() => {
 
           setshow(!show)
@@ -110,16 +138,20 @@ barStyle={'default'}
 
 
 
+
       <View>
 
         <TouchableOpacity activeOpacity={0} onPress={() => onLoginPress()}>
+
           <Text style={style.textInput5}>Login </Text>
 
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => onSingUppress()} >
-          <Text style={style.textInput7}>SingUp</Text>
-        </TouchableOpacity>
+        <View style={{ alignItems: 'center' }} >
+          <Text onPress={() => onSingUppress()} style={style.textInput7}>SingUp</Text>
+
+
+        </View>
 
 
 
@@ -127,14 +159,14 @@ barStyle={'default'}
 
 
 
-    </View>
+    </ScrollView >
+
 
 
 
   );
 
 };
-
 
 const style = StyleSheet.create({
 
@@ -169,12 +201,11 @@ const style = StyleSheet.create({
     backgroundColor: 'blue',
     borderRadius: 200,
     margin: 10,
-    marginLeft:15,
+    marginLeft: 15,
     lineHeight: 25,
     textAlign: 'center',
     textAlignVertical: 'center',
-    position:'absolute',
-    width:330
+    width: 330
 
 
 
@@ -194,15 +225,19 @@ const style = StyleSheet.create({
     color: 'black',
     fontSize: 20,
     height: 30,
-    margin: 65,
-    
-    marginLeft:140,
+
     fontWeight: 'bold',
-  lineHeight: 10,
-   
-    textAlignVertical: 'center',
+
+    width: 100,
+
+
+
+
+
+
+    textAlign: 'center',
     textDecorationLine: 'underline',
-    position:'absolute'
+
   },
   textImage: {
     marginTop: 40,
@@ -214,7 +249,6 @@ const style = StyleSheet.create({
     borderWidth: 3,
     borderColor: "white",
     alignSelf: 'center',
-
 
 
 
