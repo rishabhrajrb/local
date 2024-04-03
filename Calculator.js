@@ -13,27 +13,27 @@ const Calculator = () => {
         }
     }
     const btnpress1 = (value) => {
-       // console.log('abc', value)
-        if (value ==="DL") {
+        // console.log('abc', value)
+        if (value === "DL") {
             setvalue(value => value.slice(0, -1))
         }
 
 
     }
     const btnpressequal = () => {
-       
+
         if (value) {
 
             try {
                 setvalue(eval(value));
-              
-            
+
+
 
             } catch (error) {
                 setvalue('error')
             }
         }
-       
+
     }
     const digpress = (input) => {
         if (!isNaN(input)) {
@@ -48,20 +48,20 @@ const Calculator = () => {
     }
 
     const dotpress = () => {
-        if (!value.includes('.')){
+        if (!value.includes('.')) {
 
-           
-        setvalue(value + ".")
-        }else {
-           
-           const value1 = value.slice(-1);
+
+            setvalue(value + ".")
+        } else {
+
+            const value1 = value.slice(-1);
             if (!isNaN(value1)) {
-               
+
                 setvalue(value + ".");
             }
         }
     }
-    
+
 
     return (
 
@@ -171,14 +171,13 @@ const style = StyleSheet.create({
         backgroundColor: 'black',
         padding: 10,
         borderRadius: 10,
-        // elevation:2,
+
         margin: 10,
         height: 70,
         width: 70,
         textAlign: 'center',
 
 
-        // justifyContent:'center'
 
     },
 
